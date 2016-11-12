@@ -3,11 +3,11 @@ function juno.onLoad()
   G.title_text = G.m5x7_font:render("Midasx57")
   G.screen = juno.Buffer.fromBlank(juno.graphics.getSize())
   G.world = G.bump.newWorld(cellSize)
-  local updates = assert (io.popen ("sh lib/update_libs.sh"))
-  for line in updates:lines() do
-    print(line)
-  end
-  updates:close()
+  -- local updates = assert (io.popen ("sh lib/update_libs.sh"))
+  -- for line in updates:lines() do
+    -- print(line)
+  -- end
+  -- updates:close()
 end
 
 function juno.onUpdate(dt)
