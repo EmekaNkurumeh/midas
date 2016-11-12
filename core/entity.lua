@@ -1,4 +1,5 @@
-local entity = G.classic:extend()
+local Object = require "lib.classic"
+local entity = Object:extend()
 
 function entity:new(x,y,w,h,screen,static,world)
   self.x, self.y = x or 0, y or 0
@@ -17,18 +18,20 @@ end
 
 function entity:update(dt)
   if not self.static then
-    self.x += self.xvel
-    self.y += self.yvel + G.gravity
-    self.xvel = self.xvel * (1 - math.min dt * G.friction, 1)
-    self.yvel = self.yvel * (1 - math.min dt * G.friction, 1)
+    self.x = self.x + self.xvel
+    self.y = self.y + self.yvel + G.gravity
+    self.xvel = self.xvel * (1 - math.min(dt * G.friction, 1))
+    self.yvel = self.yvel * (1 - math.min(dt * G.friction, 1))
   end
-  if self.xvel != 0 or self.yvel != 0 then
-    self.world\move(self., self.x, self.y)
+  if self.xvel ~= 0 or self.yvel ~= 0 then
+    self.world:move(self, self.x, self.y)
     -- self.x,self.y = self.world\move(self.,self.x,self.y)
   end
 end
 
 function entity:draw()
+  self.canvas:setColor(unpack{1,1,1})
+  self.canvas:drawRect(0,0,16,16,unpack{.3,.7,.4})
   self.canvas:copyPixels(self.screen,self.x,self.y,nil)
 end
 
@@ -36,4 +39,4 @@ function entity:key(key)
   -- body...
 end
 
-return {entity = entity}
+return entity

@@ -143,13 +143,13 @@ function stalker.onerror(e, nostacktrace)
     end
     local function drawtext(str, x, y, color)
       canvas:setColor(unpack(color))
-      canvas:drawText(G.stalker_font,str, x, y)
+      canvas:drawText(juno.Font.fromFile("data/font/m3x6.ttf",32),str, x, y)
     end
     juno.graphics.setColor(unpack(colors[1]))
     canvas:clear()
 
     drawtext("An error has occurred", pad, pad, colors[2])
-    drawtext("stalker", width - G.stalker_font:getWidth("stalker") -
+    drawtext("stalker", width - (juno.Font.fromFile("data/font/m3x6.ttf",32)):getWidth("stalker") -
              pad, pad, colors[4])
     drawhr(pad + 32, colors[4], colors[5])
     drawtext("Fix the error, save the file, and the program will " ..

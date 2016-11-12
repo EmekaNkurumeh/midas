@@ -9,15 +9,10 @@ G = {
   m5x7_font = juno.Font.fromFile("data/font/m3x6.ttf",16),
   gravity = 1.5,
   friction = 7,
-  classic = require("lib.classic"),
-  coil = require("lib.coil"),
-  flux = require("lib.flux"),
-  lume = require("lib.lume"),
-  stalker = require("lib.stalker"),
-  tick = require("lib.tick"),
-  bump = require("lib.bump"),
-  -- util = require("lib.util"),
 }
+function printf(str,...)
+  print(string.format(str,...))
+end
 
 return {
   title = G.title,
