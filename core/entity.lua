@@ -32,8 +32,4 @@ function entity:draw(screen)
   screen:drawBuffer(self.canvas,self.x,self.y)
 end
 
-function entity:key(key)
-  -- body...
-end
-
 return entity
