@@ -11,17 +11,13 @@ local bindings = {
   up      = function() end
 }
 
-local buttons = {
-
-}
-
 local keymap = {
   action  = "up",
   attack  = "c",
   down    = "down",
   jump    = "x",
-  left    = "left",
-  right   = "right",
+  left    = {"left",
+  right   = {"right"},
   select  = {"return", "space", "x", "k", "c", "j"},
   up      = {"up", "w"},
 }
