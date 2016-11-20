@@ -13,9 +13,8 @@ function juno.onLoad()
   G.world = bump.newWorld(8)
   G.gs = juno.Buffer.fromFile("data/image/gs.png",16,16)
   G.ply = player(32,0,8,8,false,G.world,{.34,.7,.4})
-  G.box = entity(34,64-8,8,8,false,G.world,{.43,.07,.04})
+  G.box = entity(34,64-8,8,8,false,G.world,{1,1,1},G.gs)
   G.grd = entity(0,64,128,8,true,G.world,{.5,.456,.65})
-
 end
 
 function juno.onUpdate(dt)
@@ -33,7 +32,7 @@ function juno.onDraw()
   G.ply:draw(G.screen)
   G.grd:draw(G.screen)
   G.box:draw(G.screen)
-  -- G.screen:drawBuffer(G.gs,0,64)
+
   juno.graphics.copyPixels(G.screen, 0, 0, nil, G.scale)
   G.screen:clear()
   -- reset for drawing other buffers or whatever

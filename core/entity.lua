@@ -1,11 +1,15 @@
 local Object = require "lib.classic"
 local entity = Object:extend()
 
-function entity:new(x,y,w,h,static,world,color)
+function entity:new(x,y,w,h,static,world,color,buffer)
   self.x, self.y = x or 0, y or 0
   self.w, self.h = w or 0, h or 0
   self.static = static
-  self.color = color
+  if buffer then
+    self.buffer = buffer
+  else
+    self.color = color
+  end
   self.world = world
   self.canvas = juno.Buffer.fromBlank(self.w,self.h)
   if not self.static then
@@ -28,7 +32,12 @@ function entity:update(dt)
 end
 
 function entity:draw(screen)
-  self.canvas:drawRect(0,0,self.w,self.h,unpack(self.color))
+  if self.buffer then
+    self.canvas:clear()
+    self.canvas:drawBuffer(self.buffer,0,0)
+  else
+    self.canvas:drawRect(0,0,self.w,self.h,unpack(self.color))
+  end
   screen:drawBuffer(self.canvas,self.x,self.y)
 end
 
