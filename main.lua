@@ -13,7 +13,9 @@ function juno.onLoad()
   G.world = bump.newWorld(8)
   G.gs = juno.Buffer.fromFile("data/image/gs.png",16,16)
   G.ply = player(32,0,8,8,false,G.world,{.34,.7,.4})
-  G.box = entity(34,64-8,8,8,false,G.world,{1,1,1},G.gs)
+  G.box = entity(34,64-8,8,13,false,G.world,{1,1,1},G.gs)
+  G.box:addAnimation("walk",3,8,13,true)
+  G.box:play("walk")
   G.grd = entity(0,64,128,8,true,G.world,{.5,.456,.65})
 end
 
@@ -25,6 +27,7 @@ function juno.onUpdate(dt)
   G.ply:update(dt)
   G.box:update(dt)
   G.grd:update(dt)
+  print(G.box.animation.frame)
 end
 
 function juno.onDraw()
@@ -32,7 +35,6 @@ function juno.onDraw()
   G.ply:draw(G.screen)
   G.grd:draw(G.screen)
   G.box:draw(G.screen)
-
   juno.graphics.copyPixels(G.screen, 0, 0, nil, G.scale)
   G.screen:clear()
   -- reset for drawing other buffers or whatever

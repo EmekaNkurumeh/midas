@@ -43,7 +43,8 @@ function entity:addAnimation(name,frames,w,h,loop)
     frames = frames,
     w = w,
     h = h,
-    loop = loop
+    loop = loop,
+    frame = 0
   }
 end
 function entity:play(name)
@@ -53,19 +54,21 @@ function entity:stop()
   self.animation = nil
 end
 function entity:updateAnimation(dt)
-  image.timer = image.timer + dt
-  if image.timer > .1 then
-    image.anfm = image.anfm + 1
-    image.timer = 0
+  self.animationTimer = self.animationTimer + dt
+  if self.animationTimer > .1 then
+    self.animation.frame = self.animation.frame + 1
+    self.animationTimer = 0
   end
-  if image.anfm > image.frames then
-    image.anfm = 1
+  if self.animation.frame > self.animation.frames and self.animation.loop then
+    self.animation.frame = 1
   end
 end
 
 function entity:update(dt)
   self:updateMovement(dt)
-
+  if #self.animations > 0 then
+    self:updateAnimation(dt)
+  end
 end
 
 function entity:draw(screen)
