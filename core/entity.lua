@@ -18,9 +18,15 @@ function entity:new(x,y,w,h,static,world,color,buffer)
     self.yvel = 0
   end
   self.world:add(self,self.x,self.y,self.w,self.h)
+
+  self.animations = {}
+  self.animation = nil
+  self.animationTimer = 0
+  self.animationFrame = 0
+
 end
 
-function entity:update(dt)
+function entity:updateMovement(dt)
   if not self.static then
     dx = self.xvel
     dy = self.yvel + G.gravity
@@ -28,6 +34,37 @@ function entity:update(dt)
     self.yvel = self.yvel * (1 - math.min(dt * G.friction, 1))
     self.x,self.y,G.cols,G.len = self.world:move(self,self.x + dx,self.y + dy)
   end
+end
+
+-- animation
+
+function entity:addAnimation(name,frames,w,h,loop)
+  self.animations[name] = {
+    frames = frames,
+    w = w,
+    h = h,
+    loop = loop
+  }
+end
+function entity:play(name)
+  self.animation = self.animations[name]
+end
+function entity:stop()
+  self.animation = nil
+end
+function entity:updateAnimation(dt)
+  image.timer = image.timer + dt
+  if image.timer > .1 then
+    image.anfm = image.anfm + 1
+    image.timer = 0
+  end
+  if image.anfm > image.frames then
+    image.anfm = 1
+  end
+end
+
+function entity:update(dt)
+  self:updateMovement(dt)
 
 end
 
