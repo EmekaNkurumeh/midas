@@ -34,6 +34,8 @@ function entity:updateMovement(dt)
     self.yvel = self.yvel * (1 - math.min(dt * G.friction, 1))
     self.x,self.y,G.cols,G.len = self.world:move(self,self.x + dx,self.y + dy)
   end
+  self.x = self.x % G.width
+  self.y = self.y % G.height
 end
 
 -- animation
